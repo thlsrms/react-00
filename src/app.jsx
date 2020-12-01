@@ -44,13 +44,6 @@ class Weather extends React.Component {
             description: '',
             country: ''
         }
-        this.city = {
-            lat: '-16.3267',
-            lon: '-48.9528',
-            name: 'Anápolis',
-            country: 'BR',
-            flagImg: 'http://openweathermap.org/images/flags/br.png',
-        };
     }
 
     componentDidMount() {
@@ -76,7 +69,7 @@ class Weather extends React.Component {
     render() {
         return (
             <div>
-                <h3>Tiempo ahora</h3>
+                <h3>Tiempo en {this.props.cityName}, {this.state.country.toUpperCase()}</h3>
                 <p>El tiempo en {this.props.cityName} <img src={`http://openweathermap.org/images/flags/${this.state.country}.png`} /> para hoy es de {this.state.temp_min}°C de temperatura minima y {this.state.temp_max}°C de temperatura máxima. </p>
                 <p>La temperatura ahora es de {this.state.temp}°C con {this.state.description}.</p>
                 <button onClick={() => this.handleClick()}>Update</button>

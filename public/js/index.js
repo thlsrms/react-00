@@ -47,13 +47,6 @@ class Weather extends React.Component {
       description: '',
       country: ''
     };
-    this.city = {
-      lat: '-16.3267',
-      lon: '-48.9528',
-      name: 'Anápolis',
-      country: 'BR',
-      flagImg: 'http://openweathermap.org/images/flags/br.png'
-    };
   }
 
   componentDidMount() {
@@ -77,7 +70,7 @@ class Weather extends React.Component {
   }
 
   render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Tiempo ahora"), /*#__PURE__*/React.createElement("p", null, "El tiempo en ", this.props.cityName, " ", /*#__PURE__*/React.createElement("img", {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Tiempo en ", this.props.cityName, ", ", this.state.country.toUpperCase()), /*#__PURE__*/React.createElement("p", null, "El tiempo en ", this.props.cityName, " ", /*#__PURE__*/React.createElement("img", {
       src: `http://openweathermap.org/images/flags/${this.state.country}.png`
     }), " para hoy es de ", this.state.temp_min, "\xB0C de temperatura minima y ", this.state.temp_max, "\xB0C de temperatura m\xE1xima. "), /*#__PURE__*/React.createElement("p", null, "La temperatura ahora es de ", this.state.temp, "\xB0C con ", this.state.description, "."), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.handleClick()
