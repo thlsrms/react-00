@@ -113,6 +113,43 @@ class Weather extends React.Component {
     }
 }
 
+
+class CountryByCode extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: '',
+            searchResult: '',
+        };
+
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(e) {
+        this.setState({ value: e.target.value });
+    }
+
+    onSubmit(e) {
+        this.buscarPais(this.state.value);
+    }
+
+    async buscarPais(code) {
+        let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+        this.setState({ searchResult: res.data.name })
+    }
+
+    render() {
+        return (
+            <div>
+                <input type="text" value={this.state.value} placeholder="Buscar país" 
+                    maxLength="3" onChange={this.onChange} />
+                <button onClick={() => this.onSubmit()}>Buscar</button>
+                <label> {this.state.searchResult}</label>
+            </div>
+        );
+    }
+}
+
 const render = (appRoot) => {
     const App = (
         <div>
@@ -121,6 +158,8 @@ const render = (appRoot) => {
             <hr />
             <Weather cityName="Tarragona" />
             <Weather cityName="Anápolis" />
+            <hr/>
+            <CountryByCode />
         </div>
     );
 

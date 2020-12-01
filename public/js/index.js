@@ -126,6 +126,47 @@ class Weather extends React.Component {
 
 }
 
+class CountryByCode extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      searchResult: ''
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({
+      value: e.target.value
+    });
+  }
+
+  onSubmit(e) {
+    this.buscarPais(this.state.value);
+  }
+
+  async buscarPais(code) {
+    let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+    this.setState({
+      searchResult: res.data.name
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+      type: "text",
+      value: this.state.value,
+      placeholder: "Buscar pa\xEDs",
+      maxLength: "3",
+      onChange: this.onChange
+    }), /*#__PURE__*/React.createElement("button", {
+      onClick: () => this.onSubmit()
+    }, "Buscar"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
+  }
+
+}
+
 const render = appRoot => {
   const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Person, {
     name: personA.name,
@@ -139,7 +180,7 @@ const render = appRoot => {
     cityName: "Tarragona"
   }), /*#__PURE__*/React.createElement(Weather, {
     cityName: "An\xE1polis"
-  }));
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(CountryByCode, null));
   ReactDOM.render(App, appRoot);
 };
 
