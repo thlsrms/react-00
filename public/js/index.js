@@ -147,9 +147,21 @@ class CountryByCode extends React.Component {
   }
 
   async buscarPais(code) {
-    let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+    let result;
+
+    try {
+      let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+      result = res.data.name;
+    } catch (error) {
+      if (error.response.status == 404) {
+        result = 'Nothing Found';
+      } else if (error.response.status == 400) {
+        result = 'Invalid Search';
+      }
+    }
+
     this.setState({
-      searchResult: res.data.name
+      searchResult: result
     });
   }
 
@@ -162,7 +174,7 @@ class CountryByCode extends React.Component {
       onChange: this.onChange
     }), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.onSubmit()
-    }, "Buscar Por codigo ISO 3166 3 letras"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
+    }, "Buscar Por codigo ISO 3166"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
   }
 
 }
@@ -198,7 +210,7 @@ class IpInfo extends React.Component {
 }
 
 const render = appRoot => {
-  const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IpInfo, null), /*#__PURE__*/React.createElement(Person, {
+  const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IpInfo, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(Person, {
     name: personA.name,
     age: personA.age,
     city: personA.city

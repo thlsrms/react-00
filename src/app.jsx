@@ -134,8 +134,18 @@ class CountryByCode extends React.Component {
     }
 
     async buscarPais(code) {
-        let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
-        this.setState({ searchResult: res.data.name })
+        let result;
+        try {
+            let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
+            result = res.data.name;
+        } catch (error) {
+            if (error.response.status == 404) {
+                result = 'Nothing Found'
+            } else if (error.response.status == 400) {
+                result = 'Invalid Search'
+            }
+        }
+        this.setState({ searchResult: result })
     }
 
     render() {
@@ -143,7 +153,7 @@ class CountryByCode extends React.Component {
             <div>
                 <input type="text" value={this.state.value} placeholder="Buscar país" 
                     maxLength="3" onChange={this.onChange} />
-                <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166 3 letras</button>
+                <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166</button>
                 <label> {this.state.searchResult}</label>
             </div>
         );
@@ -187,6 +197,7 @@ const render = (appRoot) => {
     const App = (
         <div>
             <IpInfo />
+            <hr/>
             <Person name={personA.name} age={personA.age} city={personA.city} />
             <Person name={personB.name} age={personB.age} city={personB.city} />
             <hr />
