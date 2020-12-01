@@ -62,6 +62,13 @@ class Person extends React.Component {
     }
 }
 
+
+const weatherStyle = {
+    border: "2px dotted green",
+    padding: "10px",
+    margin: "5px",
+}
+
 class Weather extends React.Component {
     constructor(props) {
         super(props);
@@ -96,7 +103,7 @@ class Weather extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={weatherStyle}>
                 <h3>Tiempo en {this.props.cityName}, {this.state.country.toUpperCase()}</h3>
                 <p>El tiempo en {this.props.cityName} <img src={`http://openweathermap.org/images/flags/${this.state.country}.png`} /> para hoy es de {this.state.temp_min}°C de temperatura minima y {this.state.temp_max}°C de temperatura máxima. </p>
                 <p>La temperatura ahora es de {this.state.temp}°C con {this.state.description}.</p>

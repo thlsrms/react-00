@@ -76,6 +76,12 @@ class Person extends React.Component {
 
 }
 
+const weatherStyle = {
+  border: "2px dotted green",
+  padding: "10px",
+  margin: "5px"
+};
+
 class Weather extends React.Component {
   constructor(props) {
     super(props);
@@ -109,7 +115,9 @@ class Weather extends React.Component {
   }
 
   render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, "Tiempo en ", this.props.cityName, ", ", this.state.country.toUpperCase()), /*#__PURE__*/React.createElement("p", null, "El tiempo en ", this.props.cityName, " ", /*#__PURE__*/React.createElement("img", {
+    return /*#__PURE__*/React.createElement("div", {
+      style: weatherStyle
+    }, /*#__PURE__*/React.createElement("h3", null, "Tiempo en ", this.props.cityName, ", ", this.state.country.toUpperCase()), /*#__PURE__*/React.createElement("p", null, "El tiempo en ", this.props.cityName, " ", /*#__PURE__*/React.createElement("img", {
       src: `http://openweathermap.org/images/flags/${this.state.country}.png`
     }), " para hoy es de ", this.state.temp_min, "\xB0C de temperatura minima y ", this.state.temp_max, "\xB0C de temperatura m\xE1xima. "), /*#__PURE__*/React.createElement("p", null, "La temperatura ahora es de ", this.state.temp, "\xB0C con ", this.state.description, "."), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.handleClick()
