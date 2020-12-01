@@ -143,8 +143,41 @@ class CountryByCode extends React.Component {
             <div>
                 <input type="text" value={this.state.value} placeholder="Buscar país" 
                     maxLength="3" onChange={this.onChange} />
-                <button onClick={() => this.onSubmit()}>Buscar</button>
+                <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166 3 letras</button>
                 <label> {this.state.searchResult}</label>
+            </div>
+        );
+    }
+}
+
+class IpInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ip: '0.0.0.0',
+            region: '',
+            country: '',
+        }
+    }
+
+    componentDidMount() {
+        this.getIpInfo();
+    }
+
+    async getIpInfo() {
+        let ipinfo = await axios.get(`https://ipinfo.io/?token=7a4e2c82e00b94`);
+        let countryName = await axios.get(`https://restcountries.eu/rest/v2/alpha/${ipinfo.data.country}`)
+        this.setState({
+            ip: ipinfo.data.ip,
+            region: ipinfo.data.region,
+            country: countryName.data.name,
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <label>Visita desde {this.state.region}, {this.state.country} con la dirección IP: {this.state.ip}</label>
             </div>
         );
     }
@@ -153,6 +186,7 @@ class CountryByCode extends React.Component {
 const render = (appRoot) => {
     const App = (
         <div>
+            <IpInfo />
             <Person name={personA.name} age={personA.age} city={personA.city} />
             <Person name={personB.name} age={personB.age} city={personB.city} />
             <hr />

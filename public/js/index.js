@@ -162,13 +162,43 @@ class CountryByCode extends React.Component {
       onChange: this.onChange
     }), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.onSubmit()
-    }, "Buscar"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
+    }, "Buscar Por codigo ISO 3166 3 letras"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
+  }
+
+}
+
+class IpInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ip: '0.0.0.0',
+      region: '',
+      country: ''
+    };
+  }
+
+  componentDidMount() {
+    this.getIpInfo();
+  }
+
+  async getIpInfo() {
+    let ipinfo = await axios.get(`https://ipinfo.io/?token=7a4e2c82e00b94`);
+    let countryName = await axios.get(`https://restcountries.eu/rest/v2/alpha/${ipinfo.data.country}`);
+    this.setState({
+      ip: ipinfo.data.ip,
+      region: ipinfo.data.region,
+      country: countryName.data.name
+    });
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Visita desde ", this.state.region, ", ", this.state.country, " con la direcci\xF3n IP: ", this.state.ip));
   }
 
 }
 
 const render = appRoot => {
-  const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Person, {
+  const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IpInfo, null), /*#__PURE__*/React.createElement(Person, {
     name: personA.name,
     age: personA.age,
     city: personA.city
