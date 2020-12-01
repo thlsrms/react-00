@@ -1,8 +1,6 @@
 {
     "presets": [
-        [
-        "@babel/preset-env", {
-            "modules": "auto",
+        ["@babel/preset-env", {
             "targets": {
                 "node": "10"
             }
@@ -10,10 +8,6 @@
         "@babel/preset-react"
     ],
     "plugins": [
-        ["@babel/plugin-transform-runtime",
-          {
-            "regenerator": true
-          }
-        ]
+        "@babel/plugin-transform-runtime"
       ]
 }
