@@ -42,6 +42,7 @@ class Weather extends React.Component {
             temp_max: 0,
             temp: 0,
             description: '',
+            country: ''
         }
         this.city = {
             lat: '-16.3267',
@@ -62,12 +63,13 @@ class Weather extends React.Component {
 
     async getWeather() {
         let weatherApiKey = 'f901e95697d96d92d2837b7eed982dd8';
-        let res = await axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${this.city.lat}&lon=${this.city.lon}&appid=${weatherApiKey}&units=metric&lang=es`);
+        let res = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${this.props.cityName}&appid=${weatherApiKey}&units=metric&lang=es`);
         this.setState({
             temp_min: res.data.main.temp_min,
             temp_max: res.data.main.temp_max,
             temp: res.data.main.temp,
             description: res.data.weather[0].description,
+            country: res.data.sys.country.toLowerCase(),
         })
     };
 
@@ -75,7 +77,7 @@ class Weather extends React.Component {
         return (
             <div>
                 <h3>Tiempo ahora</h3>
-                <p>El tiempo en {this.city.name},GO <img src={this.city.flagImg} /> para hoy es de {this.state.temp_min}°C de temperatura minima y {this.state.temp_max}°C de temperatura máxima. </p>
+                <p>El tiempo en {this.props.cityName} <img src={`http://openweathermap.org/images/flags/${this.state.country}.png`} /> para hoy es de {this.state.temp_min}°C de temperatura minima y {this.state.temp_max}°C de temperatura máxima. </p>
                 <p>La temperatura ahora es de {this.state.temp}°C con {this.state.description}.</p>
                 <button onClick={() => this.handleClick()}>Update</button>
             </div>
@@ -95,7 +97,8 @@ const render = (appRoot) => {
             <button onClick={() => handleClick(personB, 'restar')}>-1</button>
             <button onClick={() => handleClick(personB, 'reset')}>reset</button>
             <hr/>
-            <Weather />
+            <Weather cityName="Tarragona" />
+            <Weather cityName="Anápolis" />
         </div>
     );
 
