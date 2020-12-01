@@ -151,7 +151,7 @@ class CountryByCode extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" value={this.state.value} placeholder="Buscar país" 
+                <input type="text" value={this.state.value} placeholder="Buscar país"
                     maxLength="3" onChange={this.onChange} />
                 <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166</button>
                 <label> {this.state.searchResult}</label>
@@ -197,21 +197,18 @@ const render = (appRoot) => {
     const App = (
         <div>
             <IpInfo />
-            <hr/>
+            <hr />
             <Person name={personA.name} age={personA.age} city={personA.city} />
             <Person name={personB.name} age={personB.age} city={personB.city} />
             <hr />
             <Weather cityName="Tarragona" />
             <Weather cityName="Anápolis" />
-            <hr/>
+            <hr />
             <CountryByCode />
         </div>
     );
 
-    ReactDOM.render(
-        App,
-        appRoot
-    );
+    ReactDOM.render(App, appRoot);
 }
 
 render(appRoot);
