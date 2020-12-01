@@ -1,0 +1,19 @@
+{
+    "presets": [
+        [
+        "@babel/preset-env", {
+            "modules": "auto",
+            "targets": {
+                "node": "10"
+            }
+        }],
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        ["@babel/plugin-transform-runtime",
+          {
+            "regenerator": true
+          }
+        ]
+      ]
+}

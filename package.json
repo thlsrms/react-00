@@ -2,18 +2,25 @@
   "name": "react-00",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/app.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "live-server public"
+    "serve": "live-server public --port=8080",
+    "code": "babel src/app.jsx --out-file=public/js/index.js --watch",
+    "dev": "npm run serve & npm run code"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
     "live-server": "^1.2.1"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.12.5"
   }
 }
