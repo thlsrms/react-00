@@ -13,29 +13,68 @@ const personB = {
 };
 const personStyle = {
   border: "3px solid blue",
-  cursor: "pointer"
+  marginTop: "10px",
+  paddingLeft: "5px",
+  paddingBottom: "5px"
 };
 
-const handleClick = (persona, name) => {
-  switch (name) {
-    case 'sumar':
-      persona.age += 1;
-      break;
-
-    case 'restar':
-      persona.age -= 1;
-      break;
-
-    case 'reset':
-      persona.age = 26;
-      break;
-
-    default:
-      break;
+class Person extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: props.name,
+      age: props.age,
+      city: props.city,
+      defaultAge: 0
+    };
   }
 
-  render(appRoot);
-};
+  componentDidMount() {
+    this.setState({
+      defaultAge: this.state.age
+    });
+  }
+
+  handleClick(func) {
+    switch (func) {
+      case 'sumar':
+        this.setState({
+          age: this.state.age + 1
+        });
+        break;
+
+      case 'restar':
+        this.setState({
+          age: this.state.age - 1
+        });
+        break;
+
+      case 'reset':
+        this.setState({
+          age: this.state.defaultAge
+        });
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      style: personStyle
+    }, /*#__PURE__*/React.createElement("h3", null, this.state.name, ", ", /*#__PURE__*/React.createElement("span", {
+      id: this.state.name
+    }, this.state.age), " de ", this.state.city), /*#__PURE__*/React.createElement("p", null, "q tal? ", this.state.name, " "), /*#__PURE__*/React.createElement("button", {
+      onClick: () => this.handleClick('sumar')
+    }, "+1"), /*#__PURE__*/React.createElement("button", {
+      onClick: () => this.handleClick('restar')
+    }, "-1"), /*#__PURE__*/React.createElement("button", {
+      onClick: () => this.handleClick('reset')
+    }, "reset"));
+  }
+
+}
 
 class Weather extends React.Component {
   constructor(props) {
@@ -80,34 +119,20 @@ class Weather extends React.Component {
 }
 
 const render = appRoot => {
-  const template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    style: personStyle,
-    onClick: () => console.log(personA.name)
-  }, personA.name, ", ", /*#__PURE__*/React.createElement("span", {
-    id: personA.name
-  }, personA.age), " de ", personA.city), /*#__PURE__*/React.createElement("p", null, "q tal? ", personA.name, " "), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personA, 'sumar')
-  }, "+1"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personA, 'restar')
-  }, "-1"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personA, 'reset')
-  }, "reset"), /*#__PURE__*/React.createElement("h3", {
-    style: personStyle,
-    onClick: () => console.log(personB.name)
-  }, personB.name, ", ", /*#__PURE__*/React.createElement("span", {
-    id: personB.name
-  }, personB.age), " de ", personB.city), /*#__PURE__*/React.createElement("p", null, "q tal? ", personB.name, " "), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personB, 'sumar')
-  }, "+1"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personB, 'restar')
-  }, "-1"), /*#__PURE__*/React.createElement("button", {
-    onClick: () => handleClick(personB, 'reset')
-  }, "reset"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(Weather, {
+  const App = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Person, {
+    name: personA.name,
+    age: personA.age,
+    city: personA.city
+  }), /*#__PURE__*/React.createElement(Person, {
+    name: personB.name,
+    age: personB.age,
+    city: personB.city
+  }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(Weather, {
     cityName: "Tarragona"
   }), /*#__PURE__*/React.createElement(Weather, {
     cityName: "An\xE1polis"
   }));
-  ReactDOM.render(template, appRoot);
+  ReactDOM.render(App, appRoot);
 };
 
 render(appRoot);

@@ -14,24 +14,52 @@ const personB = {
 
 const personStyle = {
     border: "3px solid blue",
-    cursor: "pointer",
+    marginTop: "10px",
+    paddingLeft: "5px",
+    paddingBottom: "5px",
 }
 
-const handleClick = (persona, name) => {
-    switch (name) {
-        case 'sumar':
-            persona.age += 1;
-            break;
-        case 'restar':
-            persona.age -= 1;
-            break;
-        case 'reset':
-            persona.age = 26;
-            break;
-        default:
-            break;
+class Person extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: props.name,
+            age: props.age,
+            city: props.city,
+            defaultAge: 0,
+        }
     }
-    render(appRoot);
+
+    componentDidMount() {
+        this.setState({ defaultAge: this.state.age });
+    }
+
+    handleClick(func) {
+        switch (func) {
+            case 'sumar':
+                this.setState({ age: this.state.age + 1 })
+                break;
+            case 'restar':
+                this.setState({ age: this.state.age - 1 })
+                break;
+            case 'reset':
+                this.setState({ age: this.state.defaultAge })
+                break;
+            default:
+                break;
+        }
+    }
+
+    render() {
+        return (
+            <div style={personStyle}>
+                <h3>{this.state.name}, <span id={this.state.name}>{this.state.age}</span> de {this.state.city}</h3><p>q tal? {this.state.name} </p>
+                <button onClick={() => this.handleClick('sumar')}>+1</button>
+                <button onClick={() => this.handleClick('restar')}>-1</button>
+                <button onClick={() => this.handleClick('reset')}>reset</button>
+            </div>
+        )
+    }
 }
 
 class Weather extends React.Component {
@@ -79,24 +107,18 @@ class Weather extends React.Component {
 }
 
 const render = (appRoot) => {
-    const template = (
+    const App = (
         <div>
-            <h3 style={personStyle} onClick={() => console.log(personA.name)}>{personA.name}, <span id={personA.name}>{personA.age}</span> de {personA.city}</h3><p>q tal? {personA.name} </p>
-            <button onClick={() => handleClick(personA, 'sumar')}>+1</button>
-            <button onClick={() => handleClick(personA, 'restar')}>-1</button>
-            <button onClick={() => handleClick(personA, 'reset')}>reset</button>
-            <h3 style={personStyle} onClick={() => console.log(personB.name)}>{personB.name}, <span id={personB.name}>{personB.age}</span> de {personB.city}</h3><p>q tal? {personB.name} </p>
-            <button onClick={() => handleClick(personB, 'sumar')}>+1</button>
-            <button onClick={() => handleClick(personB, 'restar')}>-1</button>
-            <button onClick={() => handleClick(personB, 'reset')}>reset</button>
-            <hr/>
+            <Person name={personA.name} age={personA.age} city={personA.city} />
+            <Person name={personB.name} age={personB.age} city={personB.city} />
+            <hr />
             <Weather cityName="Tarragona" />
             <Weather cityName="Anápolis" />
         </div>
     );
 
     ReactDOM.render(
-        template,
+        App,
         appRoot
     );
 }
