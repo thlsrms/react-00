@@ -113,6 +113,20 @@ class Weather extends React.Component {
     }
 }
 
+const centerStyle = {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+}
+
+const labelResultStyle = {
+    marginTop: "10px",
+    width: "100%",
+    textAlign: "center",
+    border: "1px orange dashed",
+    fontWeight: "bold",
+    fontSize: "20px",
+}
 
 class CountryByCode extends React.Component {
     constructor(props) {
@@ -130,10 +144,10 @@ class CountryByCode extends React.Component {
     }
 
     onSubmit(e) {
-        this.buscarPais(this.state.value);
+        this.getCountry(this.state.value);
     }
 
-    async buscarPais(code) {
+    async getCountry(code) {
         let result;
         try {
             let res = await axios.get(`https://restcountries.eu/rest/v2/alpha/${code}`);
@@ -151,10 +165,15 @@ class CountryByCode extends React.Component {
     render() {
         return (
             <div>
-                <input type="text" value={this.state.value} placeholder="Buscar país"
-                    maxLength="3" onChange={this.onChange} />
-                <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166</button>
-                <label> {this.state.searchResult}</label>
+                <div style={centerStyle}>
+                    <input type="text" value={this.state.value} placeholder="Buscar país"
+                        maxLength="3" onChange={this.onChange} />
+                    <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166</button>
+                </div>
+               {this.state.searchResult
+                    ? <div style={centerStyle, labelResultStyle}> {this.state.searchResult}</div>
+                    : null
+                }
             </div>
         );
     }
@@ -186,7 +205,7 @@ class IpInfo extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={centerStyle}>
                 <label>Visita desde {this.state.region}, {this.state.country} con la dirección IP: {this.state.ip}</label>
             </div>
         );

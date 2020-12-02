@@ -126,6 +126,20 @@ class Weather extends React.Component {
 
 }
 
+const centerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  width: "100%"
+};
+const labelResultStyle = {
+  marginTop: "10px",
+  width: "100%",
+  textAlign: "center",
+  border: "1px orange dashed",
+  fontWeight: "bold",
+  fontSize: "20px"
+};
+
 class CountryByCode extends React.Component {
   constructor(props) {
     super(props);
@@ -143,10 +157,10 @@ class CountryByCode extends React.Component {
   }
 
   onSubmit(e) {
-    this.buscarPais(this.state.value);
+    this.getCountry(this.state.value);
   }
 
-  async buscarPais(code) {
+  async getCountry(code) {
     let result;
 
     try {
@@ -166,7 +180,9 @@ class CountryByCode extends React.Component {
   }
 
   render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("input", {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+      style: centerStyle
+    }, /*#__PURE__*/React.createElement("input", {
       type: "text",
       value: this.state.value,
       placeholder: "Buscar pa\xEDs",
@@ -174,7 +190,9 @@ class CountryByCode extends React.Component {
       onChange: this.onChange
     }), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.onSubmit()
-    }, "Buscar Por codigo ISO 3166"), /*#__PURE__*/React.createElement("label", null, " ", this.state.searchResult));
+    }, "Buscar Por codigo ISO 3166")), this.state.searchResult ? /*#__PURE__*/React.createElement("div", {
+      style: (centerStyle, labelResultStyle)
+    }, " ", this.state.searchResult) : null);
   }
 
 }
@@ -204,7 +222,9 @@ class IpInfo extends React.Component {
   }
 
   render() {
-    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", null, "Visita desde ", this.state.region, ", ", this.state.country, " con la direcci\xF3n IP: ", this.state.ip));
+    return /*#__PURE__*/React.createElement("div", {
+      style: centerStyle
+    }, /*#__PURE__*/React.createElement("label", null, "Visita desde ", this.state.region, ", ", this.state.country, " con la direcci\xF3n IP: ", this.state.ip));
   }
 
 }
