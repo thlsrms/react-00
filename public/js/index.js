@@ -59,16 +59,16 @@ class Person extends React.Component {
   }
 
   getCity() {
-    return this.state.city ? /*#__PURE__*/React.createElement("span", null, "de ", this.state.city) : null;
+    return this.state.city ? `de ${this.state.city}` : null;
   }
 
   getName() {
-    return this.state.name ? /*#__PURE__*/React.createElement("span", null, this.state.name) : /*#__PURE__*/React.createElement("span", null, "An\xF3nimo");
+    return this.state.name ? this.state.name : 'Anónimo';
   }
 
   getAge() {
     if (this.state.age && this.state.age > 18) {
-      return /*#__PURE__*/React.createElement("span", null, this.state.age);
+      return this.state.age;
     } else {
       return null;
     }
@@ -77,9 +77,7 @@ class Person extends React.Component {
   render() {
     return /*#__PURE__*/React.createElement("div", {
       style: personStyle
-    }, /*#__PURE__*/React.createElement("h3", null, this.getName(), ", ", /*#__PURE__*/React.createElement("span", {
-      id: this.state.name
-    }, this.getAge()), " ", this.getCity()), /*#__PURE__*/React.createElement("p", null, "q tal? ", this.state.name, " "), /*#__PURE__*/React.createElement("button", {
+    }, /*#__PURE__*/React.createElement("h3", null, this.getName(), ", ", this.getAge(), " ", this.getCity()), /*#__PURE__*/React.createElement("p", null, "q tal? ", this.getName(), " "), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.handleClick('sumar')
     }, "+1"), /*#__PURE__*/React.createElement("button", {
       onClick: () => this.handleClick('restar')

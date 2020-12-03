@@ -49,16 +49,16 @@ class Person extends React.Component {
     }
 
     getCity() {
-        return this.state.city ? <span>de {this.state.city}</span> : null;
+        return this.state.city ? `de ${this.state.city}` : null;
     }
 
     getName() {
-        return this.state.name ? <span>{this.state.name}</span> : <span>Anónimo</span>;
+        return this.state.name ? this.state.name : 'Anónimo';
     }
 
     getAge() {
         if (this.state.age && this.state.age > 18) {
-            return <span>{this.state.age}</span>
+            return this.state.age
         } else {
             return null
         }
@@ -67,8 +67,8 @@ class Person extends React.Component {
     render() {
         return (
             <div style={personStyle}>
-                <h3>{this.getName()}, <span id={this.state.name}>{this.getAge()}</span> {this.getCity()}</h3>
-                <p>q tal? {this.state.name} </p>
+                <h3>{this.getName()}, {this.getAge()} {this.getCity()}</h3>
+                <p>q tal? {this.getName()} </p>
                 <button onClick={() => this.handleClick('sumar')}>+1</button>
                 <button onClick={() => this.handleClick('restar')}>-1</button>
                 <button onClick={() => this.handleClick('reset')}>reset</button>
@@ -185,7 +185,7 @@ class CountryByCode extends React.Component {
                         maxLength="3" onChange={this.onChange} />
                     <button onClick={() => this.onSubmit()}>Buscar Por codigo ISO 3166</button>
                 </div>
-               {this.state.searchResult
+                {this.state.searchResult
                     ? <div style={centerStyle, labelResultStyle}> {this.state.searchResult}</div>
                     : null
                 }
