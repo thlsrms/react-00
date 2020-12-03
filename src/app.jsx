@@ -4,11 +4,9 @@ const appRoot = document.getElementById('appRoot');
 const personA = {
     name: 'Perico',
     age: 26,
-    city: 'Reus'
 };
 const personB = {
-    name: 'Sultana',
-    age: 26,
+    age: 17,
     city: 'Riba Roja d\'Ebre'
 };
 
@@ -50,10 +48,27 @@ class Person extends React.Component {
         }
     }
 
+    getCity() {
+        return this.state.city ? <span>de {this.state.city}</span> : null;
+    }
+
+    getName() {
+        return this.state.name ? <span>{this.state.name}</span> : <span>Anónimo</span>;
+    }
+
+    getAge() {
+        if (this.state.age && this.state.age > 18) {
+            return <span>{this.state.age}</span>
+        } else {
+            return null
+        }
+    }
+
     render() {
         return (
             <div style={personStyle}>
-                <h3>{this.state.name}, <span id={this.state.name}>{this.state.age}</span> de {this.state.city}</h3><p>q tal? {this.state.name} </p>
+                <h3>{this.getName()}, <span id={this.state.name}>{this.getAge()}</span> {this.getCity()}</h3>
+                <p>q tal? {this.state.name} </p>
                 <button onClick={() => this.handleClick('sumar')}>+1</button>
                 <button onClick={() => this.handleClick('restar')}>-1</button>
                 <button onClick={() => this.handleClick('reset')}>reset</button>
@@ -217,7 +232,7 @@ const render = (appRoot) => {
         <div>
             <IpInfo />
             <hr />
-            <Person name={personA.name} age={personA.age} city={personA.city} />
+            <Person name={personA.name} age={personA.age} />
             <Person name={personB.name} age={personB.age} city={personB.city} />
             <hr />
             <Weather cityName="Tarragona" />
@@ -227,6 +242,7 @@ const render = (appRoot) => {
         </div>
     );
 
+    console.log(App);
     ReactDOM.render(App, appRoot);
 }
 
